@@ -1,0 +1,58 @@
+page-booking {
+	ion-item ,button.item{
+    	background-color : unset !important ;
+    	p {
+    		color: #212121 !important;
+
+    	}
+    	ion-avatar img {
+    		border-radius: unset !important;
+    		width: 28px ;
+    		height: auto;
+    	}
+    	p:first-child {
+    		text-transform: uppercase;
+    		}
+    	p:nth-child(2) {
+
+    	}
+    }
+    
+    .item-inner {
+    		border-bottom: 0.55px solid #212121 !important;
+    		padding-right: unset !important ;
+    		background-image: unset !important ;
+			max-height: 10px ;
+
+    	}
+    .item-block {
+    	max-height: 10px ;
+    	// border-bottom: 0.55px solid #212121 !important;
+    }
+	.item-block{
+		border: unset!important;
+		box-shadow: unset!important ;
+	}
+	.item-ios.item-block .item-inner{
+	    padding-right: 8px;
+	    padding-right: 8px;
+	    border-bottom: 0.55px solid #212121 !important;
+	}
+
+    .button-md ,.button-ios{
+        text-transform: inherit;
+        height: 3.6rem;
+        font-size: 1.1rem;
+        font-weight: 400;
+        min-height: 35px;
+        background-color: #212121;
+        margin: 114px 0 0px 0;
+        color: white;
+        border-radius: unset;
+        border-radius: 8px;
+        ion-icon {
+            font-size: 1.7em;
+            margin-right: 10px;
+        }
+    }
+}

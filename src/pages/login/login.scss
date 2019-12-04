@@ -1,0 +1,93 @@
+page-login {
+	
+	.row-footer {
+		button {
+			padding:unset;
+		}
+	}
+	
+	.list-ios , .list-md {
+		margin-bottom: unset ;
+	}
+
+    ._title {
+    }
+    .button-md ,.button-ios{
+	    text-transform: inherit;
+	    height: 3.6rem;
+	    font-size: 1.1rem;
+	    font-weight: 400;
+	    min-height: 35px;
+	    background-color: #212121;
+	    margin: 114px 0 0px 0;
+	    color: white;
+	    border-radius: unset;
+	    border-radius: 8px;
+		ion-icon {
+			font-size: 1.7em;
+    		margin-right: 10px;
+		}
+	}
+	ion-img {
+	    min-width: 200px !important;
+	    min-height: 240px ;
+	    background-color: transparent;
+	    margin-top: 50px;
+	    img {
+    		width: 100%;
+    		margin: auto;
+		}
+    }
+    ion-row {
+    	text-align: center;
+    }
+
+    .spinner {
+	    width: 100px;
+	    height: 100px;
+	    background-image: url(/assets/imgs/taxi-driver.png);
+	    background-position: center;
+	    background-size: cover;
+	    background-repeat: no-repeat;
+	    position: absolute;
+		margin: auto;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+
+	.double-bounce1, .double-bounce2 {
+	  width: 100%;
+	  height: 100%;
+	  border-radius: 50%;
+	  background-color: rgba(51, 51, 51, 0.35);
+	  opacity: 0.6;
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  
+	  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+	  animation: sk-bounce 2.0s infinite ease-in-out;
+	}
+
+	.double-bounce2 {
+	  -webkit-animation-delay: -1.0s;
+	  animation-delay: -1.0s;
+	}
+
+	@-webkit-keyframes sk-bounce {
+	  0%, 100% { -webkit-transform: scale(0.0) }
+	  50% { -webkit-transform: scale(1.0) }
+	}
+
+	@keyframes sk-bounce {
+	  0%, 100% { 
+	    transform: scale(0.0);
+	    -webkit-transform: scale(0.0);
+	  } 50% { 
+	    transform: scale(1.0);
+	    -webkit-transform: scale(1.0);
+	  }
+	}
+}

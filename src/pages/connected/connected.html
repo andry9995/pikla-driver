@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+    </button>
+      <ion-title>PIKLA</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+	<ion-grid class="grid-center-md grid-center-ios">
+	    <ion-row justify-content-center class="row-top">
+		  <ion-col  col-sm col-auto >
+		    <h2 class="title_" text-capitalise >Bienvenue!</h2>
+		  </ion-col>
+	    </ion-row>
+	    <ion-row class="img-profil">
+	      <ion-col  col-sm col-auto>
+	        <img [src]="user.picture">
+	        <h3>{{ user.name }}</h3>
+	      </ion-col>
+	    </ion-row>
+	    <ion-row justify-content-center class="row-center">
+	      <ion-col col-11 col-sm col-auto>
+	        <ion-list>
+		      
+		      <button ion-item (click)="requestBooking()" >
+					<ion-avatar  item-start><img src="assets/icon/taxi.png"></ion-avatar>
+					    Demande de réservation
+					    <ion-badge color="danger">66</ion-badge>
+					<ion-icon item-end ios="ios-arrow-forward" md="ios-arrow-forward"></ion-icon>
+			   </button>
+			   <button ion-item>
+				   <ion-avatar  item-start ><img src="assets/icon/logout.png"></ion-avatar>
+					   Deconnexion
+	                <ion-icon item-end ios="ios-arrow-forward" md="ios-arrow-forward"></ion-icon>
+			   </button>
+			</ion-list>
+	      </ion-col>
+	    </ion-row>
+	  </ion-grid>
+</ion-content>

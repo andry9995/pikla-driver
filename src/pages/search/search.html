@@ -1,0 +1,56 @@
+<!--
+  Generated template for the SearchPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>PIKLA</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-grid class="grid-center-md grid-center-ios">
+	<ion-row justify-content-center class="row-top">
+		  <ion-col  col-sm col-auto >
+		    <h2 class="title_" text-capitalise >Réserver un TAXI</h2>
+		  </ion-col>
+	</ion-row>
+
+	<ion-row class="img-profil">
+      <ion-col  col-sm col-auto>
+        <img src="assets/imgs/move.png">
+        <h3 style="text-align: center;">Indiquer votre déstination</h3>
+      </ion-col>
+    </ion-row>
+
+	<ion-row justify-content-center class="center-block-reservation">
+		<ion-col col-12 col-sm col-auto >
+			<div id="floating-panel">
+				<form (ngSubmit)=[onSubmit()] [formGroup]="form" id="search-form">
+					<ion-list class="list_">
+						<ion-item class="input-cover-md input-cover-ios" >
+							<ion-label no-padding no-margin class="item item-input">
+								<span class = "input-label">
+									<ion-icon name="locate"></ion-icon>
+								</span>
+							</ion-label>
+							<ion-input formControlName="target" id="target" type="text" placeholder="Déstination" stacked required></ion-input>
+						</ion-item>
+
+						<ion-item>
+							<button ion-button  block  class="button-md button-ios">
+								<ion-icon item-end ios="ios-search" md="ios-search"></ion-icon>
+								Touver un Taxi
+							</button>
+						</ion-item>
+					</ion-list>
+				</form>
+			</div>
+		</ion-col> 
+	</ion-row>	
+	</ion-grid>
+
+</ion-content>
