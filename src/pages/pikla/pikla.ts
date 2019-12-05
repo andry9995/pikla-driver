@@ -94,10 +94,39 @@ export class PiklaPage {
             let destination = booking.destination
             this.addMarker(traveler,"traveler");
             this.addMarker(destination,"destination");
+
+            this.traceRoute(this.position,traveler).then((response:any)=>{
+              this.addPolylines(response,'#212121').then((target)=>{
+
+                this.traceRoute(traveler,destination).then((resp:any)=>{
+                  this.addPolylines(resp,'#2196f3').then((tar)=>{
+                    console.log('ok')
+                  })
+                })
+
+              })
+            })
           }
         }
       })
     })
+  }
+
+  traceTravel(traveler,destination){
+
+    let travel = [
+      this.position,
+      traveler,
+      destination
+    ];
+
+    let polyline = this.map.addPolyline({
+      points: traveler,
+      color: '#AA00FF',
+      width: 10,
+      geodesic: true,
+    });
+
   }
 
   loadMap(position){
@@ -290,7 +319,9 @@ export class PiklaPage {
 			  travelMode: google.maps.TravelMode.DRIVING,
   		};
 
-  		this.directionsService.route(request, function(result, status){
+      let directionsService = new google.maps.DirectionsService();
+
+  		directionsService.route(request, function(result, status){
 			if (status == 'OK') {
         // var distance = result.routes[0].legs[0].distance.value;
         // var duree = result.routes[0].legs[0].duration.value;
@@ -301,7 +332,7 @@ export class PiklaPage {
   	})
   }
 
-  addPolylines(response:any){
+  addPolylines(response:any,color){
   	return new Promise((resolve)=>{
   		let polilynes = [];
 		response.routes[0].overview_path.forEach((position) => {
@@ -322,7 +353,7 @@ export class PiklaPage {
 
 		this.map.addPolyline({
 			points: polilynes,
-			'color' : '#b5ce93',
+			'color' : color,
 			'width': 10,
 			'geodesic': true,
 		}).then(()=>{
