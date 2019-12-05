@@ -19,7 +19,7 @@ export class PiklaPage {
   target : any;
   map: GoogleMap;
   directionsService = new google.maps.DirectionsService();
-  selectedPikla:any;
+  selectedBooking:any;
   position:any;
   key: "74859"
 
@@ -92,7 +92,7 @@ export class PiklaPage {
           if((booking.taxi == "74859") && (booking.status == 0)) {
             let traveler = booking.source;
             let destination = booking.destination
-            this.addMarker(traveler,"traveler");
+            this.addMarker(traveler,"traveler",key);
             this.addMarker(destination,"destination");
 
             this.traceRoute(this.position,traveler).then((response:any)=>{
@@ -134,13 +134,18 @@ export class PiklaPage {
   		let mapOptions: GoogleMapOptions = {
 			camera: {
 				target: position,
-				zoom: 18,
+				zoom: 15,
 				tilt: 30
 			},
-			controls: {
-				compass: false,
-				mapToolbar: false
-			}
+      mapType: 'MAP_TYPE_ROADMAP',
+      controls: {
+        compass: true,
+          myLocationButton: true,
+          myLocation: true,
+          indoorPicker: true,
+          mapToolbar: true
+      }
+
 		};
 
 
@@ -197,10 +202,10 @@ export class PiklaPage {
   	}
 
 	  this.map.addMarker(marker).then((markerObject)=>{
-      if (type == "pikla") {
+      if (type == "traveler") {
          markerObject.on(GoogleMapsEvent.MARKER_CLICK).subscribe((marker) => {
-           this.selectedPikla = key;
-           console.log(marker);
+           console.log('click traveler')
+           this.selectedBooking = key;
            this.clickPiklaMarker(marker);
          });
       }
@@ -247,67 +252,59 @@ export class PiklaPage {
 
     // let marker: Marker = <Marker>params[1];
 
-    this.firebasePrvd.fetchById('taxi',this.selectedPikla).then((taxi:any) => {
-      let origin = taxi.coords;
-      let destination = this.position;
+
+    this.firebasePrvd.fetchById('booking',this.selectedBooking).then((booking:any)=>{
+
+      let origin = this.position;
+      let destination = booking.source;
 
       this.getTravelDetails(origin,destination).then((details:any)=>{
+        let distance = details.distance;
+        let duration = details.duration;
 
-          let distance = details.distance
-          let duration = details.duration
+        let alert = this.alertCtrl.create({
+          title: 'Valider',
+          message: 'Voulez vous valider cette réservation ? Le voyageur se trouve à ' + distance + ' de vous, soit ' + duration + 'de route',
+          inputs: [
+            {
+              name: 'price',
+              placeholder: 'Prix du trajet'
+            }
+          ],
+          buttons: [
+            {
+              text: 'OUI',
+              handler: data =>{
+                this.bookTaxi(marker,data.price)
+              }
+            },
+            {
+              text: 'NON',
+              handler: data => {
 
-          let alert = this.alertCtrl.create({
-              title : 'Commander',
-              message: 'Voulez-vous commander ce TAXI qui se trouve à ' + distance + ' de votre position, ' + duration + ' de route',
-              buttons: [
-                {
-                    text: 'OUI',
-                    handler: () => {
-                        this.bookTaxi(marker);
-                    }
-                },
-                {
-                    text: 'NON',
-                    handler: () => {
-                    }
-                },
-              ],
-              enableBackdropDismiss: false,
-          });
-          
-          alert.present();
-      })       
+              }
+            }
+          ],
+          cssClass: 'tb-alert',
+          enableBackdropDismiss: false
+        });
 
+        alert.present()
 
-
+      })
     })
-
 
   }
 
-  bookTaxi(marker){
+  bookTaxi(marker,price){
 
     let book = {
-       source: this.position,
-       destination: this.target,
-       user: '123456',
-       taxi: this.selectedPikla,
-       status:0
-
-    };
-
-    let bookKey = this.firebasePrvd.save('booking',book);
-
-    let pikla = {
       status: 1,
+      price: price
     };
 
-    this.firebasePrvd.save('taxi',pikla,this.selectedPikla);
+    this.firebasePrvd.save('booking',book,this.selectedBooking)
 
-
-    this.navCtrl.setRoot(BookingPage,{
-      key: bookKey
-    });
   }
 
   traceRoute(origin,destination){
@@ -366,7 +363,7 @@ export class PiklaPage {
   moveCamera(target){
 	this.map.moveCamera({
 		target: target,
-		zoom: 18
+		zoom: 15
 	})
   }
 
